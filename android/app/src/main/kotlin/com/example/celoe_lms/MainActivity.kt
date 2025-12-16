@@ -1,0 +1,5 @@
+package com.example.celoe_lms
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
