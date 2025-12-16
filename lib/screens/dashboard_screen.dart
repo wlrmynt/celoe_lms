@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:celoe_lms/screens/profile_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -112,17 +113,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           const SizedBox(width: 16),
-          CircleAvatar(
-            radius: 28,
-            backgroundColor: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: CircleAvatar(
-                radius: 26,
-                backgroundImage: const AssetImage(
-                  'assets/LogoTel-U 1.png',
-                ), // Using available asset as placeholder avatar
-                backgroundColor: Colors.grey[200],
+            GestureDetector(
+             onTap: () {
+                Navigator.of(context).push(
+                   MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                );
+             },
+             child: CircleAvatar(
+              radius: 28,
+              backgroundColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: CircleAvatar(
+                  radius: 26,
+                  backgroundImage: const AssetImage(
+                    'assets/LogoTel-U 1.png',
+                  ), // Using available asset as placeholder avatar
+                  backgroundColor: Colors.grey[200],
+                ),
               ),
             ),
           ),
@@ -415,7 +423,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               label: 'Home',
             ),
             NavigationDestination(
-              icon: Icon(Icons.class_outlined),
+              icon: Icon(Icons.school_outlined),
               selectedIcon: Icon(Icons.school),
               label: 'Kelas Saya',
             ),
