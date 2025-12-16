@@ -18,7 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: [
           // 2. Header (Top Navigation)
           _buildHeader(),
-          
+
           // Scrollable Content
           Expanded(
             child: SingleChildScrollView(
@@ -27,7 +27,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // 3. Section “Tugas Yang Akan Datang”
-                  _buildSectionTitle('Tugas Yang Akan Datang', showViewAll: false),
+                  _buildSectionTitle(
+                    'Tugas Yang Akan Datang',
+                    showViewAll: false,
+                  ),
                   _buildUpcomingTaskCard(),
                   const SizedBox(height: 24),
 
@@ -53,7 +56,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 50, 20, 24), // Adjust top padding for status bar
+      padding: const EdgeInsets.fromLTRB(
+        20,
+        50,
+        20,
+        24,
+      ), // Adjust top padding for status bar
       decoration: const BoxDecoration(
         color: Color(0xFFB71C1C), // Maroon background
         borderRadius: BorderRadius.only(
@@ -69,10 +77,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 const Text(
                   'Hallo,',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
                 ),
                 const SizedBox(height: 4),
                 const Text(
@@ -86,7 +91,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
@@ -111,7 +119,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               padding: const EdgeInsets.all(2.0),
               child: CircleAvatar(
                 radius: 26,
-                backgroundImage: const AssetImage('assets/LogoTel-U 1.png'), // Using available asset as placeholder avatar
+                backgroundImage: const AssetImage(
+                  'assets/LogoTel-U 1.png',
+                ), // Using available asset as placeholder avatar
                 backgroundColor: Colors.grey[200],
               ),
             ),
@@ -190,10 +200,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 8),
           const Text(
             'Tugas Heuristik Evaluation',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 16,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 16),
           ),
           const SizedBox(height: 16),
           Row(
@@ -202,7 +209,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               SizedBox(width: 8),
               Text(
                 'Senin, 18 Des 2024 • 23:59',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -218,7 +228,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         image: const DecorationImage(
-          image: AssetImage('assets/Learning Management System.png'), // Placeholder for illustrative banner
+          image: AssetImage(
+            'assets/Learning Management System.png',
+          ), // Placeholder for illustrative banner
           fit: BoxFit.cover,
         ),
       ),
@@ -228,10 +240,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           gradient: LinearGradient(
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
-            colors: [
-              Colors.black.withValues(alpha: 0.7),
-              Colors.transparent,
-            ],
+            colors: [Colors.black.withValues(alpha: 0.7), Colors.transparent],
           ),
         ),
         padding: const EdgeInsets.all(16),
@@ -278,7 +287,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildClassProgressCard(String title, String subtitle, double progress, Color color) {
+  Widget _buildClassProgressCard(
+    String title,
+    String subtitle,
+    double progress,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -310,10 +324,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
                 const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                Text(
+                  subtitle,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -323,7 +343,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: LinearProgressIndicator(
                           value: progress,
                           backgroundColor: Colors.grey[200],
-                          color: const Color(0xFFB71C1C), // Consistent red progress
+                          color: const Color(
+                            0xFFB71C1C,
+                          ), // Consistent red progress
                           minHeight: 6,
                         ),
                       ),
@@ -359,32 +381,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      child: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        backgroundColor: Colors.white,
-        indicatorColor: const Color(0xFFB71C1C).withValues(alpha: 0.1),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home, color: Color(0xFFB71C1C)),
-            label: 'Home',
+      child: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          backgroundColor: const Color(0xFFB71C1C),
+          indicatorColor: Colors.white.withValues(alpha: 0.2), // Light highlight for selection
+          labelTextStyle: WidgetStateProperty.all(
+            const TextStyle(
+              color: Colors.white, 
+              fontSize: 12, 
+              fontWeight: FontWeight.w500
+            ),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.class_outlined),
-            selectedIcon: Icon(Icons.class_, color: Color(0xFFB71C1C)),
-            label: 'Kelas Saya',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.notifications_outlined),
-            selectedIcon: Icon(Icons.notifications, color: Color(0xFFB71C1C)),
-            label: 'Notifikasi',
-          ),
-        ],
+          iconTheme: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return const IconThemeData(color: Colors.white);
+            }
+            return const IconThemeData(color: Colors.white70);
+          }),
+        ),
+        child: NavigationBar(
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          backgroundColor: const Color(0xFFB71C1C),
+          indicatorColor: Colors.white.withValues(alpha: 0.2),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.class_outlined),
+              selectedIcon: Icon(Icons.school),
+              label: 'Kelas Saya',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.notifications_outlined),
+              selectedIcon: Icon(Icons.notifications),
+              label: 'Notifikasi',
+            ),
+          ],
+        ),
       ),
     );
   }
