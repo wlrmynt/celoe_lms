@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/dashboard_screen.dart';
+import 'package:celoe_lms/screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -195,6 +196,34 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+                      ),
+                      
+                      const SizedBox(height: 8),
+
+                      // Registrasi Link
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Belum punya akun? ',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const RegisterScreen()),
+                              );
+                            },
+                            child: const Text(
+                              'Daftar',
+                              style: TextStyle(
+                                color: primaryRed,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
