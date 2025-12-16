@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/dashboard_screen.dart';
 import 'package:celoe_lms/screens/register_screen.dart';
+import 'package:celoe_lms/screens/help_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -186,7 +187,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       // 6. Tautan Bantuan
                       Center(
                         child: TextButton(
-                          onPressed: () {}, // Action for help
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => const HelpScreen()),
+                            );
+                          },
                           child: const Text(
                             'Bantuan ?',
                             style: TextStyle(
