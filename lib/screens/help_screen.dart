@@ -16,7 +16,7 @@ class _HelpScreenState extends State<HelpScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Bantuan', style: TextStyle(color: Colors.black)),
+        title: Text(isId ? 'Bantuan' : 'Help', style: const TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -50,9 +50,11 @@ class _HelpScreenState extends State<HelpScreen> {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.grey.shade200),
               ),
-              child: const Text(
-                'Akses hanya untuk Dosen dan Mahasiswa Telkom University.',
-                style: TextStyle(
+              child: Text(
+                isId
+                    ? 'Akses hanya untuk Dosen dan Mahasiswa Telkom University.'
+                    : 'Access only for Lecturers and Students of Telkom University.',
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
@@ -63,27 +65,33 @@ class _HelpScreenState extends State<HelpScreen> {
             const SizedBox(height: 32),
 
             // 4. Instruksi Login Office 365
-            _buildSectionTitle('Petunjuk Login Office 365'),
+            _buildSectionTitle(
+                isId ? 'Petunjuk Login Office 365' : 'Office 365 Login Instructions'),
             const SizedBox(height: 12),
-            _buildInstructionText(
-                '1. Pastikan Anda menggunakan akun: Microsoft Office 365 Anda.'),
-            _buildInstructionText(
-                '2. Username: Masukkan email lengkap (contoh: nama@telkomuniversity.ac.id).'),
-            _buildInstructionText(
-                '3. Password: Gunakan password akun SSO Anda yang aktif.'),
+            _buildInstructionText(isId
+                ? '1. Pastikan Anda menggunakan akun: Microsoft Office 365 Anda.'
+                : '1. Ensure you are using your: Microsoft Office 365 account.'),
+            _buildInstructionText(isId
+                ? '2. Username: Masukkan email lengkap (contoh: nama@telkomuniversity.ac.id).'
+                : '2. Username: Enter full email (e.g., name@telkomuniversity.ac.id).'),
+            _buildInstructionText(isId
+                ? '3. Password: Gunakan password akun SSO Anda yang aktif.'
+                : '3. Password: Use your active SSO account password.'),
             const SizedBox(height: 24),
 
             // 5. Penjelasan Penyebab Gagal Autentikasi
-            _buildSectionTitle('Masalah Autentikasi?'),
+            _buildSectionTitle(isId ? 'Masalah Autentikasi?' : 'Authentication Issues?'),
             const SizedBox(height: 12),
-            const Text(
-              'Gagal login sering disebabkan oleh password yang kadaluarsa atau belum memenuhi standar keamanan. Pastikan akun Anda sudah mengaktifkan "Strong Password". Silakan reset password di i-Gracias jika diperlukan.',
-              style: TextStyle(height: 1.5, color: Colors.black87),
+            Text(
+              isId
+                  ? 'Gagal login sering disebabkan oleh password yang kadaluarsa atau belum memenuhi standar keamanan. Pastikan akun Anda sudah mengaktifkan "Strong Password". Silakan reset password di i-Gracias jika diperlukan.'
+                  : 'Login failure is often caused by an expired password or one that does not meet security standards. Ensure your account has "Strong Password" enabled. Please reset your password in i-Gracias if necessary.',
+              style: const TextStyle(height: 1.5, color: Colors.black87),
             ),
             const SizedBox(height: 32),
 
             // 6. Informasi Kontak Helpdesk
-            _buildSectionTitle('Butuh Bantuan?'),
+            _buildSectionTitle(isId ? 'Butuh Bantuan?' : 'Need Help?'),
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.all(16),
@@ -108,11 +116,14 @@ class _HelpScreenState extends State<HelpScreen> {
     );
   }
 
-  Widget _buildLanguageOption(String code, bool isSelected, IconData icon) {
+  Widget _buildLanguageOption(String code, bool isDefault, IconData icon) {
+    // Determine if this option is selected based on state
+    bool isSelected = (code == 'ID' && isId) || (code == 'EN' && !isId);
+    
     return GestureDetector(
       onTap: () {
         setState(() {
-          isId = code == 'ID';
+          isId = (code == 'ID');
         });
       },
       child: Column(
