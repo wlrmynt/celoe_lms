@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/profile_screen.dart';
 import 'package:celoe_lms/screens/notification_screen.dart';
+import 'package:celoe_lms/screens/announcement_list_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -156,7 +157,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           if (showViewAll)
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                if (title == 'Pengumuman Terakhir') {
+                   Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const AnnouncementListScreen()),
+                  );
+                }
+              },
               child: const Text(
                 'Lihat Semua',
                 style: TextStyle(color: Color(0xFFB71C1C)),
