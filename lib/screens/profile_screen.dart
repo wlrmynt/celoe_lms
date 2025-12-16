@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/notification_screen.dart';
+import 'package:celoe_lms/screens/my_classes_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -165,6 +166,10 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           onDestinationSelected: (index) {
             if (index == 0) {
               Navigator.of(context).pop(); // Go back to Home
+            } else if (index == 1) {
+               Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const MyClassesScreen()),
+              );
             } else if (index == 2) {
                Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const NotificationScreen()),
