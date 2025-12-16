@@ -13,188 +13,272 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: const Text('Celoe LMS', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined, color: Colors.black),
-            onPressed: () {},
-          ),
-          const Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage(
-                'assets/LogoTel-U 1.png',
-              ), // Placeholder or User Avatar
-              radius: 18,
+      backgroundColor: Colors.grey[50], // Light background
+      body: Column(
+        children: [
+          // 2. Header (Top Navigation)
+          _buildHeader(),
+          
+          // Scrollable Content
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 3. Section “Tugas Yang Akan Datang”
+                  _buildSectionTitle('Tugas Yang Akan Datang', showViewAll: false),
+                  _buildUpcomingTaskCard(),
+                  const SizedBox(height: 24),
+
+                  // 4. Section “Pengumuman Terakhir”
+                  _buildSectionTitle('Pengumuman Terakhir', showViewAll: true),
+                  _buildAnnouncementBanner(),
+                  const SizedBox(height: 24),
+
+                  // 5. Section “Progres Kelas”
+                  _buildSectionTitle('Progres Kelas', showViewAll: false),
+                  _buildClassProgressList(),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Welcome Header
-              const Text(
-                'Hello, Student!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'What would you like to learn today?',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-              const SizedBox(height: 24),
+      // 6. Bottom Navigation Bar
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
 
-              // Featured Banner (Carousel Placeholder)
-              Container(
-                width: double.infinity,
-                height: 180,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/Learning Management System.png'),
-                    fit: BoxFit.cover,
-                    opacity: 0.9,
-                  ),
-                  color: Colors.blueAccent,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Colors.black.withValues(alpha: 0.6),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(20),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'New Course Available!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Text(
-                        'Advanced UX Design Principles',
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // Categories / Grid
-              const Text(
-                'Categories',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildCategoryCard(Icons.code, 'Coding', Colors.blue),
-                  _buildCategoryCard(
-                    Icons.design_services,
-                    'Design',
-                    Colors.purple,
-                  ),
-                  _buildCategoryCard(Icons.business, 'Business', Colors.orange),
-                  _buildCategoryCard(Icons.language, 'Language', Colors.green),
-                ],
-              ),
-              const SizedBox(height: 24),
-
-              // Recent Courses
-              const Text(
-                'My Courses',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              _buildCourseCard(
-                'Introduction to Flutter',
-                'Progress: 75%',
-                0.75,
-                Colors.blue,
-              ),
-              const SizedBox(height: 12),
-              _buildCourseCard(
-                'Digital Marketing 101',
-                'Progress: 30%',
-                0.30,
-                Colors.orange,
-              ),
-            ],
-          ),
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 50, 20, 24), // Adjust top padding for status bar
+      decoration: const BoxDecoration(
+        color: Color(0xFFB71C1C), // Maroon background
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(24),
+          bottomRight: Radius.circular(24),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 75,
-        decoration: const BoxDecoration(
-          color: Color(0xFFB71C1C), // Celoe red background
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Hallo,',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'DANDY CANDRA PRATAMA',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    'MAHASISWA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          CircleAvatar(
+            radius: 28,
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: CircleAvatar(
+                radius: 26,
+                backgroundImage: const AssetImage('assets/LogoTel-U 1.png'), // Using available asset as placeholder avatar
+                backgroundColor: Colors.grey[200],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title, {bool showViewAll = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          if (showViewAll)
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Lihat Semua',
+                style: TextStyle(color: Color(0xFFB71C1C)),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUpcomingTaskCard() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFB71C1C), // Maroon/Red background
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFB71C1C).withValues(alpha: 0.3),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Text(
+              'Deadline Terdekat',
+              style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Desain Pengalaman Pengguna',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Tugas Heuristik Evaluation',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: const [
+              Icon(Icons.calendar_today, color: Colors.white, size: 16),
+              SizedBox(width: 8),
+              Text(
+                'Senin, 18 Des 2024 • 23:59',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAnnouncementBanner() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      height: 160,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        image: const DecorationImage(
+          image: AssetImage('assets/Learning Management System.png'), // Placeholder for illustrative banner
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.black.withValues(alpha: 0.7),
+              Colors.transparent,
+            ],
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildCustomTabItem(0, Icons.home, 'Home'),
-              _buildCustomTabItem(1, Icons.school, 'Kelas Saya'),
-              _buildCustomTabItem(2, Icons.notifications, 'Notifikasi'),
-            ],
+        padding: const EdgeInsets.all(16),
+        alignment: Alignment.bottomLeft,
+        child: const Text(
+          'Jadwal Maintenance Sistem LMS',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildCategoryCard(IconData icon, String label, Color color) {
-    return Column(
+  Widget _buildClassProgressList() {
+    return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Icon(icon, color: color, size: 30),
+        _buildClassProgressCard(
+          'Interaksi Manusia Komputer',
+          'IMK-44-02 • Semester 3',
+          0.85,
+          Colors.orange,
         ),
-        const SizedBox(height: 8),
-        Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
+        const SizedBox(height: 12),
+        _buildClassProgressCard(
+          'Pemrograman Mobile',
+          'MOB-44-01 • Semester 5',
+          0.45,
+          Colors.blue,
+        ),
+        const SizedBox(height: 12),
+        _buildClassProgressCard(
+          'Kewirausahaan Teknologi',
+          'KWU-44-03 • Semester 7',
+          0.70,
+          Colors.green,
+        ),
       ],
     );
   }
 
-  Widget _buildCourseCard(
-    String title,
-    String subtitle,
-    double progress,
-    Color color,
-  ) {
+  Widget _buildClassProgressCard(String title, String subtitle, double progress, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -203,22 +287,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withValues(alpha: 0.1),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Row(
         children: [
           Container(
-            width: 60,
-            height: 60,
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.2),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(Icons.play_circle_fill, color: color, size: 30),
+            child: Icon(Icons.book, color: color),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -227,23 +310,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                LinearProgressIndicator(
-                  value: progress,
-                  backgroundColor: Colors.grey[200],
-                  color: color,
-                  minHeight: 6,
-                  borderRadius: BorderRadius.circular(10),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                Text(subtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: LinearProgressIndicator(
+                          value: progress,
+                          backgroundColor: Colors.grey[200],
+                          color: const Color(0xFFB71C1C), // Consistent red progress
+                          minHeight: 6,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${(progress * 100).toInt()}%',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFB71C1C),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -253,41 +347,44 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildCustomTabItem(int index, IconData icon, String label) {
-    final isSelected = _selectedIndex == index;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
-        // Click effect with animation
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Colors.white.withValues(alpha: 0.2)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 24, color: Colors.white),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
+  Widget _buildBottomNavigationBar() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, -5),
+          ),
+        ],
+      ),
+      child: NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        backgroundColor: Colors.white,
+        indicatorColor: const Color(0xFFB71C1C).withValues(alpha: 0.1),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home, color: Color(0xFFB71C1C)),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.class_outlined),
+            selectedIcon: Icon(Icons.class_, color: Color(0xFFB71C1C)),
+            label: 'Kelas Saya',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.notifications_outlined),
+            selectedIcon: Icon(Icons.notifications, color: Color(0xFFB71C1C)),
+            label: 'Notifikasi',
+          ),
+        ],
       ),
     );
   }
