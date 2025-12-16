@@ -63,13 +63,27 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          // Tab 1: Deskripsi
+          // Tab 1: Deskripsi (Rich Header & Instructor)
           SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                 // Feature Image
+                Container(
+                  height: 150,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    image: const DecorationImage(
+                      image: AssetImage('assets/UX.png'), // Placeholder
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                
+                 const Text(
                   'Pengantar User Interface Design',
                   style: TextStyle(
                     fontSize: 20,
@@ -83,41 +97,100 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
                   style: TextStyle(fontSize: 14, height: 1.6, color: Colors.black87),
                   textAlign: TextAlign.justify,
                 ),
-                const SizedBox(height: 20),
-                // Illustration as per description
-                Center(
-                  child: Container(
-                    height: 180,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: const DecorationImage(
-                        image: AssetImage('assets/1.png'), // Using available asset as placeholder
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
+
+                // Instructor Info Section
                 const Text(
-                  'Tujuan utama dari UI design adalah untuk membuat interaksi pengguna seefisien dan sesederhana mungkin (user-friendly). Hal ini mencakup elemen-elemen seperti tombol, ikon, tipografi, warna, dan tata letak yang konsisten.',
-                  style: TextStyle(fontSize: 14, height: 1.6, color: Colors.black87),
-                  textAlign: TextAlign.justify,
+                  'Dosen Pengampu',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                   padding: const EdgeInsets.all(16),
+                   decoration: BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: BorderRadius.circular(12),
+                     border: Border.all(color: Colors.grey[200]!),
+                   ),
+                   child: Row(
+                     children: [
+                       const CircleAvatar(
+                         radius: 30,
+                         backgroundColor: Colors.grey,
+                         child: Icon(Icons.person, color: Colors.white, size: 30),
+                       ),
+                       const SizedBox(width: 16),
+                       Expanded(
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             const Text(
+                               'Aditya Rachman, S.T., M.Kom.',
+                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                             ),
+                             const SizedBox(height: 4),
+                             Text(
+                               'Expertise: HCI, UX Research',
+                               style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                             ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: const [
+                                  Icon(Icons.email_outlined, size: 14, color: Colors.grey),
+                                  SizedBox(width: 4),
+                                  Text('aditya@telkomuniversity.ac.id', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                                ],
+                              )
+                           ],
+                         ),
+                       ),
+                     ],
+                   ),
+                ),
+
+                const SizedBox(height: 24),
+                // Mid-Scroll Callout Illustration
+                Center(
+                  child: Image.asset('assets/1.png', height: 120),
                 ),
               ],
             ),
           ),
 
-          // Tab 2: Materi Dan Kuis
+          // Tab 2: Materi Dan Kuis (Video & Content)
           ListView(
             padding: const EdgeInsets.all(20),
             children: [
-              _buildMaterialItem('Zoom Meeting Synchronous', 'Video Conference', true),
+              // Main Video Area
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                alignment: Alignment.center,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Icon(Icons.play_circle_fill, color: Colors.white, size: 60),
+                     SizedBox(height: 8),
+                     Text('Putar Video Pembelajaran', style: TextStyle(color: Colors.white)),
+                   ],
+                ),
+              ),
+              const SizedBox(height: 8),
+               const Text(
+                'Video: Konsep Dasar UI Design',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 24),
+              
+              const Text('Materi Pembelajaran', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 12),
+
               _buildMaterialItem('Slide Presentasi - Pengantar UI', 'PDF Document', true),
               const SizedBox(height: 12),
               _buildMaterialItem('Artikel: Sejarah Perkembangan UI', 'Web Link', true),
-              const SizedBox(height: 12),
-              _buildMaterialItem('Video: UI vs UX', 'Video', false),
               const SizedBox(height: 12),
               _buildMaterialItem('Kuis: Pemahaman Dasar', 'Quiz', false),
             ],

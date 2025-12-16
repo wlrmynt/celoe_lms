@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/meeting_detail_screen.dart';
 import 'package:celoe_lms/screens/quiz_screen.dart';
+import 'package:celoe_lms/screens/assignment_detail_screen.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   final String courseName;
@@ -182,6 +183,10 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
         if (title.contains('Quiz')) {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const QuizScreen()),
+          );
+        } else if (title.contains('Tugas')) {
+           Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => AssignmentDetailScreen(assignmentTitle: title)),
           );
         }
       },
