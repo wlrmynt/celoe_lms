@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:celoe_lms/screens/notification_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -162,10 +163,17 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         child: NavigationBar(
           selectedIndex: _bottomNavIndex,
           onDestinationSelected: (index) {
-            setState(() {
-              _bottomNavIndex = index;
-              if (index == 0) Navigator.of(context).pop(); // Go back to Home
-            });
+            if (index == 0) {
+              Navigator.of(context).pop(); // Go back to Home
+            } else if (index == 2) {
+               Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const NotificationScreen()),
+              );
+            } else {
+              setState(() {
+                _bottomNavIndex = index;
+              });
+            }
           },
           backgroundColor: primaryRed,
           indicatorColor: Colors.white.withValues(alpha: 0.2),

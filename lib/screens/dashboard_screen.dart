@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/profile_screen.dart';
+import 'package:celoe_lms/screens/notification_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -410,9 +411,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: NavigationBar(
           selectedIndex: _selectedIndex,
           onDestinationSelected: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
+            if (index == 2) {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const NotificationScreen()),
+              );
+            } else {
+              setState(() {
+                _selectedIndex = index;
+              });
+            }
           },
           backgroundColor: const Color(0xFFB71C1C),
           indicatorColor: Colors.white.withValues(alpha: 0.2),
