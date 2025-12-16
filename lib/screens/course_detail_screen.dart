@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/meeting_detail_screen.dart';
+import 'package:celoe_lms/screens/quiz_screen.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   final String courseName;
@@ -176,43 +177,52 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
   }
 
   Widget _buildTaskItem(String title, String deadline, bool isCompleted) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.orange.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
+    return GestureDetector(
+      onTap: () {
+        if (title.contains('Quiz')) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const QuizScreen()),
+          );
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.grey[200]!),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.orange.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(Icons.assignment_outlined, color: Colors.orange),
             ),
-            child: const Icon(Icons.assignment_outlined, color: Colors.orange),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  deadline,
-                  style: const TextStyle(fontSize: 12, color: Colors.redAccent),
-                ),
-              ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    deadline,
+                    style: const TextStyle(fontSize: 12, color: Colors.redAccent),
+                  ),
+                ],
+              ),
             ),
-          ),
-          if (isCompleted)
-            const Icon(Icons.check_circle, color: Colors.green),
-        ],
+            if (isCompleted)
+              const Icon(Icons.check_circle, color: Colors.green),
+          ],
+        ),
       ),
     );
   }
