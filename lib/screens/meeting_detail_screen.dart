@@ -224,10 +224,16 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
         String message = 'Membuka Link...';
 
         if (type.contains('PDF')) {
+          // Use a dummy PDF for the slide presentation
           urlString = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
           message = 'Membuka PPT...';
         } else if (type.contains('Web Link') || type.contains('Link')) {
-          urlString = 'https://en.wikipedia.org/wiki/User_interface_design'; // Relevant Article
+          // Specific link based on title
+          if (title.contains('Sejarah')) {
+            urlString = 'https://en.wikipedia.org/wiki/History_of_GUI_design';
+          } else {
+            urlString = 'https://en.wikipedia.org/wiki/User_interface_design';
+          }
           message = 'Membuka Artikel...';
         }
 
@@ -238,6 +244,7 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
         }
         
         final Uri url = Uri.parse(urlString);
+        // FORCE external application mode to ensure browser/PDF viewer opens
         if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
           if (context.mounted) {
              ScaffoldMessenger.of(context).showSnackBar(
