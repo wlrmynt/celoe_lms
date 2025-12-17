@@ -3,6 +3,8 @@ import 'package:celoe_lms/screens/profile_screen.dart';
 import 'package:celoe_lms/screens/notification_screen.dart';
 import 'package:celoe_lms/screens/announcement_list_screen.dart';
 import 'package:celoe_lms/screens/my_classes_screen.dart';
+import 'package:celoe_lms/screens/assignment_detail_screen.dart';
+import 'package:celoe_lms/screens/course_detail_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -251,8 +253,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
       ),
-    ),
-  );
+    );
   }
 
   Widget _buildAnnouncementBanner() {
