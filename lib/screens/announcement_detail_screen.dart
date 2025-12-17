@@ -81,7 +81,7 @@ class AnnouncementDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Yth. Dosen dan Mahasiswa Telkom University,',
+              'Yth. Dosen dan Mahasiswa Universitas Islam Madura,',
               style: TextStyle(fontSize: 16, height: 1.5),
             ),
             const SizedBox(height: 12),
@@ -124,7 +124,7 @@ class AnnouncementDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             const Text(
-              'CELOE Telkom University',
+              'CELOE Universitas Islam Madura',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
              const SizedBox(height: 40),

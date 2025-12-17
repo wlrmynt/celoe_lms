@@ -85,7 +85,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  'DANDY CANDRA PRATAMA',
+                  'WILIRAMAYANTI',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -130,7 +130,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: CircleAvatar(
                   radius: 26,
                   backgroundImage: const AssetImage(
-                    'assets/LogoTel-U 1.png',
+                    'assets/wil.jpg',
                   ), // Using available asset as placeholder avatar
                   backgroundColor: Colors.grey[200],
                 ),

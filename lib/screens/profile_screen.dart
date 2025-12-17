@@ -14,9 +14,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   int _bottomNavIndex = 1; // Default to 'Kelas Saya' or just keep it purely visual if needed
 
   // Edit Profile Controllers
-  final _firstNameController = TextEditingController(text: "Dandy");
-  final _lastNameController = TextEditingController(text: "Candra Pratama");
-  final _emailController = TextEditingController(text: "dandycandra@student.telkomuniversity.ac.id");
+  final _firstNameController = TextEditingController(text: "Wiliramayanti");
+  final _lastNameController = TextEditingController(text: "");
+  final _emailController = TextEditingController(text: "wiliramayanti@student.uim.ac.id");
   final _countryController = TextEditingController(text: "Indonesia");
   final _descController = TextEditingController(text: "Mahasiswa Informatika angkatan 2021.");
 
@@ -78,12 +78,12 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 const SizedBox(height: 20),
                 const CircleAvatar(
                   radius: 40,
-                  backgroundImage: AssetImage('assets/LogoTel-U 1.png'), // Placeholder
+                  backgroundImage: AssetImage('assets/wil.jpg'), // Placeholder
                   backgroundColor: Colors.white,
                 ),
                 const SizedBox(height: 12),
                 const Text(
-                  'DANDY CANDRA PRATAMA',
+                  'WILIRAMAYANTI',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -211,7 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow('Email Address', 'dandycandra@student.telkomuniversity.ac.id'),
+          _buildInfoRow('Email Address', 'wiliramayanti@student.uim.ac.id'),
           _buildInfoRow('Program Studi', 'S1 Informatika'),
           _buildInfoRow('Fakultas', 'Informatika'),
           const SizedBox(height: 24),

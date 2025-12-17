@@ -52,8 +52,8 @@ class _HelpScreenState extends State<HelpScreen> {
               ),
               child: Text(
                 isId
-                    ? 'Akses hanya untuk Dosen dan Mahasiswa Telkom University.'
-                    : 'Access only for Lecturers and Students of Telkom University.',
+                    ? 'Akses hanya untuk Dosen dan Mahasiswa Universitas Islam Madura.'
+                    : 'Access only for Lecturers and Students of Universitas Islam Madura.',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -72,8 +72,8 @@ class _HelpScreenState extends State<HelpScreen> {
                 ? '1. Pastikan Anda menggunakan akun: Microsoft Office 365 Anda.'
                 : '1. Ensure you are using your: Microsoft Office 365 account.'),
             _buildInstructionText(isId
-                ? '2. Username: Masukkan email lengkap (contoh: nama@telkomuniversity.ac.id).'
-                : '2. Username: Enter full email (e.g., name@telkomuniversity.ac.id).'),
+                ? '2. Username: Masukkan email lengkap (contoh: nama@student.uim.ac.id).'
+                : '2. Username: Enter full email (e.g., name@student.uim.ac.id).'),
             _buildInstructionText(isId
                 ? '3. Password: Gunakan password akun SSO Anda yang aktif.'
                 : '3. Password: Use your active SSO account password.'),
@@ -101,7 +101,7 @@ class _HelpScreenState extends State<HelpScreen> {
               ),
               child: Column(
                 children: [
-                  _buildContactItem(Icons.email, 'helpdesk@telkomuniversity.ac.id'),
+                  _buildContactItem(Icons.email, 'helpdesk@uim.ac.id'),
                   const SizedBox(height: 12),
                   const Divider(),
                   const SizedBox(height: 12),

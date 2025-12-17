@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         top: 40,
                         left: 20,
                         child: Image.asset(
-                          'assets/LogoTel-U 1.png',
+                          'assets/logo merah.png',
                           height: 40,
                           errorBuilder: (ctx, err, stack) => const SizedBox(),
                         ),
@@ -139,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: _emailController,
                                 decoration: const InputDecoration(
                                   labelText: 'Email 365',
-                                  hintText: 'user@student.telkomuniversity.ac.id',
+                                  hintText: 'user@student.uim.ac.id',
                                   labelStyle: TextStyle(color: Colors.grey),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey),
