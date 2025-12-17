@@ -16,16 +16,128 @@ class _QuizScreenState extends State<QuizScreen> {
   final List<bool> _isCorrect = List.generate(15, (index) => false); // Track correctness for bubbles
 
   // Mock Question Data
-  final Map<String, dynamic> _currentQuestion = {
-    'question': 'Apa tujuan utama dari User Interface (UI) Design?',
-    'options': [
-      'Membuat kode program yang efisien',
-      'Membuat tampilan yang menarik dan mudah digunakan',
-      'Mengelola basis data pengguna',
-      'Menulis dokumentasi teknis sistem',
-    ],
-    'correctIndex': 1,
-  };
+  final List<Map<String, dynamic>> _questions = [
+    {
+      'question': 'Apa tujuan utama dari User Interface (UI) Design?',
+      'options': [
+        'Membuat kode program yang efisien',
+        'Membuat tampilan yang menarik dan mudah digunakan',
+        'Mengelola basis data pengguna',
+        'Menulis dokumentasi teknis sistem',
+      ],
+      'correctIndex': 1,
+    },
+    {
+        'question': 'Manakah yang termasuk prinsip Gestalt?',
+        'options': ['Proximity', 'Recursion', 'Abstraction', 'Polymorphism'],
+        'correctIndex': 0,
+    },
+    {
+        'question': 'Apa perbedaan utama UI dan UX?',
+        'options': [
+            'UI fokus pada visual, UX fokus pada pengalaman',
+            'UI fokus pada pengalaman, UX fokus pada visual',
+            'Keduanya sama saja',
+            'UI untuk web, UX untuk mobile'
+        ],
+        'correctIndex': 0,
+    },
+    {
+        'question': 'Warna #FF0000 merepresentasikan warna apa?',
+        'options': ['Biru', 'Hijau', 'Merah', 'Kuning'],
+        'correctIndex': 2,
+    },
+    {
+        'question': 'Tool yang populer untuk desain UI adalah...',
+        'options': ['Visual Studio Code', 'Figma', 'Postman', 'Git'],
+        'correctIndex': 1,
+    },
+     {
+        'question': 'Apa itu Wireframe?',
+        'options': [
+            'Hasil akhir desain dengan warna lengkap',
+            'Kerangka dasar struktur halaman (low-fidelity)',
+            'Kode program frontend',
+            'Dokumen spesifikasi API'
+        ],
+        'correctIndex': 1,
+    },
+    {
+        'question': 'Dalam tipografi, apa itu "Leading"?',
+        'options': [
+            'Jarak antar huruf',
+            'Jarak antar baris',
+            'Ketebalan huruf',
+            'Ukuran font'
+        ],
+        'correctIndex': 1,
+    },
+     {
+        'question': 'Apa kepanjangan dari HCI?',
+        'options': [
+            'Human Central Interaction',
+            'Human Computer Interaction',
+            'High Computer Interface',
+            'Host Connection Interface'
+        ],
+        'correctIndex': 1,
+    },
+     {
+        'question': 'Prinsip "Consistency" dalam desain berarti...',
+        'options': [
+            'Desain harus selalu berubah agar tidak bosan',
+            'Elemen desain serupa harus berperilaku serupa',
+            'Menggunakan satu warna saja',
+            'Mengabaikan standar platform'
+        ],
+        'correctIndex': 1,
+    },
+     {
+        'question': 'Manakah kontras warna teks yang baik untuk latar putih?',
+        'options': ['Kuning cerah', 'Abu-abu muda', 'Hitam pekat', 'Cyan terang'],
+        'correctIndex': 2,
+    },
+    {
+        'question': 'Apa fungsi dari "Breadcrumb" navigation?',
+        'options': [
+            'Menampilkan riwayat browsing',
+            'Menunjukkan lokasi pengguna dalam struktur situs',
+            'Menyimpan makanan',
+            'Membuat menu dropdown'
+        ],
+        'correctIndex': 1,
+    },
+     {
+        'question': 'Apa itu "Responsive Design"?',
+        'options': [
+            'Desain yang merespon suara user',
+            'Desain yang menyesuaikan ukuran layar perangkat',
+            'Desain yang memuat sangat cepat',
+            'Desain dengan animasi banyak'
+        ],
+        'correctIndex': 1,
+    },
+     {
+        'question': 'Ukuran touch target minimal yang disarankan (Material Design) adalah...',
+        'options': ['10x10 dp', '24x24 dp', '48x48 dp', '100x100 dp'],
+        'correctIndex': 2,
+    },
+     {
+        'question': 'Apa itu "Affordance"?',
+        'options': [
+            'Harga desain',
+            'Petunjuk visual tentang cara menggunakan objek',
+            'Kecepatan aplikasi',
+            'Jenis font'
+        ],
+        'correctIndex': 1,
+    },
+     {
+        'question': 'Warna biru sering diasosiasikan dengan...',
+        'options': ['Bahaya', 'Kepercayaan dan profesionalisme', 'Semangat dan energi', 'Alam dan kesegaran'],
+        'correctIndex': 1,
+    },
+  ];
 
   @override
   void initState() {
@@ -141,7 +253,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
             // Question
             Text(
-              _currentQuestion['question'],
+              _questions[_currentQuestionIndex]['question'],
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -153,10 +265,10 @@ class _QuizScreenState extends State<QuizScreen> {
             // Answer Options
             Expanded(
               child: ListView.separated(
-                itemCount: _currentQuestion['options'].length,
+                itemCount: _questions[_currentQuestionIndex]['options'].length,
                 separatorBuilder: (context, index) => const SizedBox(height: 12),
                 itemBuilder: (context, index) {
-                  return _buildAnswerOption(index, _currentQuestion['options'][index]);
+                  return _buildAnswerOption(index, _questions[_currentQuestionIndex]['options'][index]);
                 },
               ),
             ),
