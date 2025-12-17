@@ -240,4 +240,57 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
       ),
     );
   }
+
+  Widget _buildToolItem(String name, String description, String assetPath) {
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Membuka tool $name...')),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey[200]!),
+          boxShadow: [
+             BoxShadow(
+               color: Colors.black.withValues(alpha: 0.05),
+               blurRadius: 4,
+               offset: const Offset(0, 2),
+             ),
+          ],
+        ),
+        child: Row(
+          children: [
+             Container(
+               width: 50,
+               height: 50,
+               decoration: BoxDecoration(
+                 borderRadius: BorderRadius.circular(8),
+                 color: Colors.grey[100],
+                 image: DecorationImage(
+                    image: AssetImage(assetPath),
+                    fit: BoxFit.cover,
+                 )
+               ),
+             ),
+             const SizedBox(width: 16),
+             Expanded(
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                   const SizedBox(height: 4),
+                   Text(description, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                 ],
+               ),
+             ),
+             const Icon(Icons.open_in_new, color: Colors.grey, size: 20),
+          ],
+        ),
+      ),
+    );
+  }
 }
