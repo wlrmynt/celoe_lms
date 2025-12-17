@@ -73,13 +73,13 @@ class NotificationScreen extends StatelessWidget {
         itemCount: notifications.length,
         itemBuilder: (context, index) {
           final notif = notifications[index];
-          return _buildNotificationItem(notif);
+          return _buildNotificationItem(context, notif);
         },
       ),
     );
   }
 
-  Widget _buildNotificationItem(Map<String, dynamic> notif) {
+  Widget _buildNotificationItem(BuildContext context, Map<String, dynamic> notif) {
     IconData icon;
     Color iconColor;
 
