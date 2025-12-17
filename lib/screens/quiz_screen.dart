@@ -359,7 +359,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     // Feedback Logic
     if (_selectedAnswers[_currentQuestionIndex] != null) {
-      if (index == _currentQuestion['correctIndex']) {
+      if (index == _questions[_currentQuestionIndex]['correctIndex']) {
         // Correct Answer (Standard: Green)
         borderColor = Colors.green;
         fillColor = Colors.green.withValues(alpha: 0.1);
