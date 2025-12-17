@@ -22,21 +22,21 @@ class _MyClassesScreenState extends State<MyClassesScreen> {
         'name': 'KEWARGANEGARAAN',
         'code': 'D4SM-42-03 [ADY]',
         'progress': 0.89,
-        'image': 'assets/1.png', // Using available asset
+        'image': 'assets/gambar1.png', // Using available asset
       },
       {
         'semester': '2021/2',
         'name': 'DESAIN UI/UX',
         'code': 'D4SM-44-01 [GHE]',
         'progress': 0.75,
-        'image': 'assets/UX.png', // Using available asset
+        'image': 'assets/gambar2.png', // Using available asset
       },
       {
         'semester': '2021/2',
         'name': 'PEMROGRAMAN WEB',
         'code': 'D4SM-42-02 [RZA]',
         'progress': 0.45,
-        'image': 'assets/Learning Management System.png', // Using available asset
+        'image': 'assets/gambar3.png', // Using available asset
       },
       {
         'semester': '2021/2',

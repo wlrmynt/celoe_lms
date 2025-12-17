@@ -93,11 +93,11 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
           ListView(
             padding: const EdgeInsets.all(20),
             children: [
-              _buildToolItem('Figma', 'Desain Interface & Prototyping', 'assets/UX.png'),
+              _buildToolItem('Figma', 'Desain Interface & Prototyping', 'assets/gambar1.png'),
               const SizedBox(height: 12),
-              _buildToolItem('Visual Studio Code', 'Code Editor', 'assets/1.png'),
+              _buildToolItem('Visual Studio Code', 'Code Editor', 'assets/gambar2.png'),
               const SizedBox(height: 12),
-              _buildToolItem('Trello', 'Manajemen Proyek', 'assets/Learning Management System.png'),
+              _buildToolItem('Trello', 'Manajemen Proyek', 'assets/gambar3.png'),
             ],
           ),
         ],

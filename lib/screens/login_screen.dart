@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/1.png'), // Full-width building photo
+                      image: AssetImage('assets/image.png'), // Full-width building photo
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                          top: 40,
                          left: 20,
                          child: Image.asset(
-                           'assets/logo merah.png', 
+                           'assets/logouim.png', 
                            height: 40,
                            errorBuilder: (ctx, err, stack) => const SizedBox(),
                          ),
@@ -259,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset(
-                          'assets/logo merah.png', // Red circular logo
+                          'assets/logouim.png', // UIM logo
                           fit: BoxFit.contain,
                         ),
                       ),

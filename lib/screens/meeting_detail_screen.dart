@@ -78,7 +78,7 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     image: const DecorationImage(
-                      image: AssetImage('assets/UX.png'), // Placeholder
+                      image: AssetImage('assets/gambar1.png'), // Placeholder
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -153,7 +153,7 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
                 const SizedBox(height: 24),
                 // Mid-Scroll Callout Illustration
                 Center(
-                  child: Image.asset('assets/1.png', height: 120),
+                  child: Image.asset('assets/gambar2.png', height: 120),
                 ),
               ],
             ),
