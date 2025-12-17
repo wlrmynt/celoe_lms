@@ -162,20 +162,27 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
             padding: const EdgeInsets.all(20),
             children: [
               // Main Video Area
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                alignment: Alignment.center,
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                     Icon(Icons.play_circle_fill, color: Colors.white, size: 60),
-                     SizedBox(height: 8),
-                     Text('Putar Video Pembelajaran', style: TextStyle(color: Colors.white)),
-                   ],
+              GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Memutar Video Pembelajaran...')),
+                  );
+                },
+                child: Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  alignment: Alignment.center,
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Icon(Icons.play_circle_fill, color: Colors.white, size: 60),
+                       SizedBox(height: 8),
+                       Text('Putar Video Pembelajaran', style: TextStyle(color: Colors.white)),
+                     ],
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
@@ -201,68 +208,75 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
   }
 
   Widget _buildMaterialItem(String title, String type, bool isCompleted) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey[200]!),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Icon based on type
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: const Color(0xFFB71C1C).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Membuka $title...')),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.grey[200]!),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
-            child: Icon(
-              _getIconForType(type),
-              color: const Color(0xFFB71C1C),
-              size: 24,
+          ],
+        ),
+        child: Row(
+          children: [
+            // Icon based on type
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFB71C1C).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                _getIconForType(type),
+                color: const Color(0xFFB71C1C),
+                size: 24,
+              ),
             ),
-          ),
-          const SizedBox(width: 16),
-          
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: Colors.black87,
+            const SizedBox(width: 16),
+            
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Colors.black87,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  type,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
+                  const SizedBox(height: 4),
+                  Text(
+                    type,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          
-          if (isCompleted)
-            const Icon(
-              Icons.check_circle,
-              color: Colors.green,
-              size: 24,
-            ),
-        ],
+            
+            if (isCompleted)
+              const Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 24,
+              ),
+          ],
+        ),
       ),
     );
   }
