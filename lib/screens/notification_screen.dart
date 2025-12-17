@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:celoe_lms/screens/assignment_detail_screen.dart';
+import 'package:celoe_lms/screens/quiz_screen.dart';
+
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
@@ -95,7 +98,23 @@ class NotificationScreen extends StatelessWidget {
         iconColor = Colors.grey;
     }
 
-    return Padding(
+    return InkWell(
+      onTap: () {
+        if (notif['type'] == 'task') {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const AssignmentDetailScreen(assignmentTitle: 'Detail Tugas'),
+          ));
+        } else if (notif['type'] == 'quiz') {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const QuizScreen(),
+          ));
+        } else {
+           ScaffoldMessenger.of(context).showSnackBar(
+             SnackBar(content: Text('Pesan: ${notif['message']}')),
+           );
+        }
+      },
+      child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,6 +157,7 @@ class NotificationScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }
