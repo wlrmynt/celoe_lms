@@ -227,8 +227,26 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
             width: double.infinity,
             child: OutlinedButton.icon(
               onPressed: () {
-                // Logout logic
-                 Navigator.of(context).popUntil((route) => route.isFirst);
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Keluar'),
+                    content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('Batal', style: TextStyle(color: Colors.grey)),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close dialog
+                          Navigator.of(context).popUntil((route) => route.isFirst);
+                        },
+                        child: const Text('Ya, Keluar', style: TextStyle(color: Color(0xFFB71C1C))),
+                      ),
+                    ],
+                  ),
+                );
               },
               icon: const Icon(Icons.logout, color: Color(0xFFB71C1C)),
               label: const Text('LOG OUT'),
@@ -361,10 +379,24 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Save logic
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Profil berhasil diperbarui')),
-                );
+                 // Simulate Network Request
+                 showDialog(
+                   context: context, 
+                   barrierDismissible: false,
+                   builder: (context) => const Center(child: CircularProgressIndicator())
+                 );
+                 
+                 Future.delayed(const Duration(milliseconds: 1500), () {
+                   if (context.mounted) {
+                     Navigator.of(context).pop(); // dismiss loading
+                     ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Profil berhasil diperbarui'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                   }
+                 });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: primaryRed,
