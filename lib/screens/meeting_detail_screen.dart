@@ -223,7 +223,7 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
         if (type == 'Quiz') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const QuizScreen()),
+            MaterialPageRoute(builder: (context) => QuizScreen(quizTitle: title)),
           );
           return;
         }

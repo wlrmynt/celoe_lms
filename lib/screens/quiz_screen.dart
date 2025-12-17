@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+  final String? quizTitle;
+
+  const QuizScreen({super.key, this.quizTitle});
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -195,9 +197,9 @@ class _QuizScreenState extends State<QuizScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
-        title: const Text(
-          'Quiz Review 01',
-          style: TextStyle(
+        title: Text(
+          widget.quizTitle ?? 'Quiz Review 01',
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.bold,

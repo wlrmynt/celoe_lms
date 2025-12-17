@@ -191,7 +191,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
       onTap: () {
         if (title.contains('Quiz')) {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const QuizScreen()),
+            MaterialPageRoute(builder: (context) => QuizScreen(quizTitle: title)),
           );
         } else if (title.contains('Tugas')) {
            Navigator.of(context).push(
