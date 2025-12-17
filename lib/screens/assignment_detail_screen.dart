@@ -1,9 +1,61 @@
 import 'package:flutter/material.dart';
 
-class AssignmentDetailScreen extends StatelessWidget {
+class AssignmentDetailScreen extends StatefulWidget {
   final String assignmentTitle;
 
   const AssignmentDetailScreen({super.key, required this.assignmentTitle});
+
+  @override
+  State<AssignmentDetailScreen> createState() => _AssignmentDetailScreenState();
+}
+
+class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
+  String? _selectedFileName;
+  bool _isUploading = false;
+
+  void _pickFile() async {
+    setState(() {
+      _isUploading = true;
+    });
+
+    // Simulate file picking delay
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      _selectedFileName = "Tugas_Konsep_UI_Wiliramayanti.zip";
+      _isUploading = false;
+    });
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('File berhasil dipilih'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    }
+  }
+
+  void _submitAssignment() {
+    if (_selectedFileName == null) return;
+
+    // Simulate submission
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+         Navigator.of(context).pop(); // Dismiss loading
+         ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Tugas berhasil dikumpulkan!')),
+        );
+        Navigator.of(context).pop(); // Go back
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +71,13 @@ class AssignmentDetailScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          assignmentTitle,
+          widget.assignmentTitle,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
-           maxLines: 1,
+          maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         centerTitle: true,
@@ -60,7 +112,7 @@ class AssignmentDetailScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  _buildStatusRow('Status Pengumpulan:', 'Belum dikumpulkan', Colors.grey),
+                  _buildStatusRow('Status Pengumpulan:', _selectedFileName != null ? 'Sudah dikumpulkan' : 'Belum dikumpulkan', _selectedFileName != null ? Colors.green : Colors.grey),
                   const Divider(height: 1),
                   _buildStatusRow('Status Penilaian:', 'Belum dinilai', Colors.grey),
                   const Divider(height: 1),
@@ -83,30 +135,37 @@ class AssignmentDetailScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.grey[50],
-                border: Border.all(color: Colors.grey[400]!, style: BorderStyle.solid), // Dashed border is complex in Flutter without packages
+                border: Border.all(color: Colors.grey[400]!, style: BorderStyle.solid),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Column(
+              child: _isUploading 
+                  ? const Center(child: CircularProgressIndicator())
+                  : Column(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
-                   Icon(Icons.cloud_upload_outlined, size: 48, color: Colors.grey[400]),
+                   Icon(
+                     _selectedFileName != null ? Icons.check_circle_outline : Icons.cloud_upload_outlined, 
+                     size: 48, 
+                     color: _selectedFileName != null ? Colors.green : Colors.grey[400]
+                   ),
                    const SizedBox(height: 16),
-                   const Text(
-                     'Drag & Drop file di sini atau',
-                     style: TextStyle(color: Colors.grey),
+                   Text(
+                     _selectedFileName ?? 'Drag & Drop file di sini atau',
+                     style: TextStyle(color: _selectedFileName != null ? Colors.black87 : Colors.grey, fontWeight: _selectedFileName != null ? FontWeight.bold : FontWeight.normal),
                    ),
                    const SizedBox(height: 12),
-                   ElevatedButton(
-                     onPressed: () {},
-                     style: ElevatedButton.styleFrom(
-                       backgroundColor: primaryRed,
-                       shape: RoundedRectangleBorder(
-                         borderRadius: BorderRadius.circular(8),
+                   if (_selectedFileName == null)
+                     ElevatedButton(
+                       onPressed: _pickFile,
+                       style: ElevatedButton.styleFrom(
+                         backgroundColor: primaryRed,
+                         shape: RoundedRectangleBorder(
+                           borderRadius: BorderRadius.circular(8),
+                         ),
+                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                        ),
-                       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                       child: const Text('Pilih File', style: TextStyle(color: Colors.white)),
                      ),
-                     child: const Text('Pilih File', style: TextStyle(color: Colors.white)),
-                   ),
                    const SizedBox(height: 12),
                     const Text(
                      'Maks. Ukuran File: 100MB, Maks. Jumlah File: 1',
@@ -120,14 +179,10 @@ class AssignmentDetailScreen extends StatelessWidget {
                width: double.infinity,
                height: 50,
                child: ElevatedButton(
-                 onPressed: () {
-                   Navigator.of(context).pop();
-                   ScaffoldMessenger.of(context).showSnackBar(
-                     const SnackBar(content: Text('Tugas berhasil dikumpulkan!')),
-                   );
-                 },
+                 onPressed: _selectedFileName != null ? _submitAssignment : null, // Disable if no file
                  style: ElevatedButton.styleFrom(
                    backgroundColor: primaryRed,
+                   disabledBackgroundColor: Colors.grey[300],
                    shape: RoundedRectangleBorder(
                      borderRadius: BorderRadius.circular(8),
                    ),
