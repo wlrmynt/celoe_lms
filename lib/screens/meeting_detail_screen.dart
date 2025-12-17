@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MeetingDetailScreen extends StatefulWidget {
   final String meetingTitle;
@@ -209,39 +210,20 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
 
   Widget _buildMaterialItem(String title, String type, bool isCompleted) {
     return GestureDetector(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  type.contains('PDF') ? Icons.picture_as_pdf : Icons.link,
-                  size: 50,
-                  color: const Color(0xFFB71C1C),
-                ),
-                const SizedBox(height: 16),
-                Text('Membuka $title', style: const TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center),
-                const SizedBox(height: 8),
-                const LinearProgressIndicator(color: Color(0xFFB71C1C)),
-                const SizedBox(height: 16),
-                const Text('Sedang memuat...', style: TextStyle(color: Colors.grey, fontSize: 12)),
-              ],
-            ),
-          ),
+      onTap: () async {
+        final Uri url = Uri.parse(
+          type.contains('PDF') 
+            ? 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' 
+            : 'https://www.w3schools.com/css/css3_user_interface.asp'
         );
-
-        // Simulate close after delay
-        Future.delayed(const Duration(seconds: 2), () {
+        
+        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
           if (context.mounted) {
-            Navigator.of(context).pop();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Berhasil membuka $title')),
+             ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Could not launch $url')),
             );
           }
-        });
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(16),
