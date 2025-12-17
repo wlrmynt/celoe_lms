@@ -163,37 +163,20 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
           ListView(
             padding: const EdgeInsets.all(20),
             children: [
-              // Main Video Area
-              GestureDetector(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Memutar Video Pembelajaran...')),
-                  );
-                },
-                child: Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
-                       Icon(Icons.play_circle_fill, color: Colors.white, size: 60),
-                       SizedBox(height: 8),
-                       Text('Putar Video Pembelajaran', style: TextStyle(color: Colors.white)),
-                     ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Video: ${_getVideoTitle(widget.meetingTitle)}',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 24),
+              const Text('Video Pembelajaran', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              const SizedBox(height: 12),
               
+              // Multiple Video Items
+              ..._getMeetingVideos(widget.meetingTitle).map((video) {
+                return Column(
+                  children: [
+                    _buildVideoItem(video['title']!, video['duration']!),
+                    const SizedBox(height: 12),
+                  ],
+                );
+              }),
+              
+              const SizedBox(height: 12),
               const Text('Materi Pembelajaran', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 12),
 
@@ -213,6 +196,80 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildVideoItem(String title, String duration) {
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Memutar: $title')),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.grey[200]!),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Video thumbnail/icon
+            Container(
+              width: 80,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.play_circle_fill,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+            const SizedBox(width: 16),
+            
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      const Icon(Icons.access_time, size: 14, color: Colors.grey),
+                      const SizedBox(width: 4),
+                      Text(
+                        duration,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -326,6 +383,52 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
     if (meetingTitle.contains('Pertemuan 2')) return 'Tutorial Wireframing Dasar';
     if (meetingTitle.contains('Pertemuan 3')) return 'Teori Warna dan Tipografi';
     return 'Materi Pembelajaran';
+  }
+
+  List<Map<String, String>> _getMeetingVideos(String meetingTitle) {
+    // Return multiple videos based on meeting
+    if (meetingTitle.contains('Pengantar') || meetingTitle.contains('Pertemuan 1')) {
+      return [
+        {
+          'title': 'Video 1: Pengenalan UI Design',
+          'duration': '15:30',
+        },
+        {
+          'title': 'Video 2: Prinsip Dasar UI',
+          'duration': '12:45',
+        },
+        {
+          'title': 'Video 3: Studi Kasus UI Design',
+          'duration': '18:20',
+        },
+      ];
+    } else if (meetingTitle.contains('Pertemuan 2')) {
+      return [
+        {
+          'title': 'Video 1: Pengenalan Wireframing',
+          'duration': '14:15',
+        },
+        {
+          'title': 'Video 2: Tools untuk Wireframing',
+          'duration': '16:50',
+        },
+        {
+          'title': 'Video 3: Praktik Wireframing',
+          'duration': '20:30',
+        },
+      ];
+    } else {
+      return [
+        {
+          'title': 'Video 1: Materi Pembelajaran',
+          'duration': '15:00',
+        },
+        {
+          'title': 'Video 2: Studi Kasus',
+          'duration': '12:00',
+        },
+      ];
+    }
   }
 
   List<Map<String, String>> _getMeetingMaterials(String meetingTitle) {
