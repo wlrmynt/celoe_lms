@@ -187,7 +187,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const AssignmentDetailScreen(
+            builder: (context) => AssignmentDetailScreen(
               assignmentTitle: 'Desain Pengalaman Pengguna',
             ),
           ),
