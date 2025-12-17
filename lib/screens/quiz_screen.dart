@@ -175,7 +175,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     setState(() {
       _selectedAnswers[_currentQuestionIndex] = index;
-      if (index == _currentQuestion['correctIndex']) {
+      if (index == _questions[_currentQuestionIndex]['correctIndex']) {
         _isCorrect[_currentQuestionIndex] = true;
       } else {
         _isCorrect[_currentQuestionIndex] = false;
