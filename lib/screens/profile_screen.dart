@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/notification_screen.dart';
 import 'package:celoe_lms/screens/my_classes_screen.dart';
+import 'package:celoe_lms/screens/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -240,7 +241,10 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop(); // Close dialog
-                          Navigator.of(context).popUntil((route) => route.isFirst);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => const LoginScreen()),
+                            (route) => false,
+                          );
                         },
                         child: const Text('Ya, Keluar', style: TextStyle(color: Color(0xFFB71C1C))),
                       ),
