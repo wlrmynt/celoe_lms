@@ -306,4 +306,59 @@ class _QuizScreenState extends State<QuizScreen> {
       ),
     );
   }
+
+  void _showResultDialog() {
+    int correctCount = _isCorrect.where((c) => c).length;
+    double score = (correctCount / 15) * 100;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: const Column(
+            children: [
+              Icon(Icons.emoji_events, color: Colors.orange, size: 50),
+              SizedBox(height: 8),
+              Text('Kuis Selesai!', style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Nilai Anda'),
+              const SizedBox(height: 8),
+              Text(
+                '${score.toInt()}',
+                style: const TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFB71C1C),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text('Benar: $correctCount dari 15 Soal'),
+            ],
+          ),
+          actions: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFB71C1C),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close dialog
+                  Navigator.of(context).pop(); // Back to course
+                },
+                child: const Text('Kembali ke Materi', style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
