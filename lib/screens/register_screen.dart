@@ -90,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         top: 40,
                         left: 20,
                         child: Image.asset(
-                          'assets/logouim.png',
+                          'assets/uimlogo.png',
                           height: 40,
                           errorBuilder: (ctx, err, stack) => const SizedBox(),
                         ),
@@ -340,7 +340,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset(
-                          'assets/logouim.png',
+                          'assets/uimlogo.png',
                           fit: BoxFit.contain,
                         ),
                       ),

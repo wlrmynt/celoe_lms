@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                          top: 40,
                          left: 20,
                          child: Image.asset(
-                           'assets/logouim.png', 
+                           'assets/uimlogo.png', 
                            height: 40,
                            errorBuilder: (ctx, err, stack) => const SizedBox(),
                          ),
@@ -259,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image.asset(
-                          'assets/logouim.png', // UIM logo
+                          'assets/uimlogo.png', // UIM logo
                           fit: BoxFit.contain,
                         ),
                       ),
