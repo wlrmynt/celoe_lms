@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 class AssignmentDetailScreen extends StatefulWidget {
   final String assignmentTitle;
@@ -18,21 +19,37 @@ class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
       _isUploading = true;
     });
 
-    // Simulate file picking delay
-    await Future.delayed(const Duration(seconds: 1));
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    setState(() {
-      _selectedFileName = "Tugas_Konsep_UI_Wiliramayanti.zip";
-      _isUploading = false;
-    });
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('File berhasil dipilih'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      if (result != null) {
+        setState(() {
+          _selectedFileName = result.files.single.name;
+        });
+        
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('File berhasil dipilih'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } else {
+        // User canceled the picker
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Gagal memilih file: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isUploading = false;
+        });
+      }
     }
   }
 
