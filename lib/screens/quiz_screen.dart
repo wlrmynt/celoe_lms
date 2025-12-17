@@ -170,10 +170,9 @@ class _QuizScreenState extends State<QuizScreen> {
                    setState(() {
                      if (_currentQuestionIndex < 14) {
                        _currentQuestionIndex++;
-                       // Note: In a real app, we would load the next question data here
+                       // In a real app, load next question here
                      } else {
-                       // Finish Quiz
-                       Navigator.of(context).pop();
+                       _showResultDialog();
                      }
                    });
                 },
