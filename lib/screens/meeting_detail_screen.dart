@@ -188,20 +188,28 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
                 ),
               ),
               const SizedBox(height: 8),
-               const Text(
-                'Video: Konsep Dasar UI Design',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Text(
+                'Video: ${_getVideoTitle(widget.meetingTitle)}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 24),
               
               const Text('Materi Pembelajaran', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 12),
 
-              _buildMaterialItem('Slide Presentasi - Pengantar UI', 'PDF Document', true),
-              const SizedBox(height: 12),
-              _buildMaterialItem('Artikel: Sejarah Perkembangan UI', 'Web Link', true),
-              const SizedBox(height: 12),
-              _buildMaterialItem('Kuis: Pemahaman Dasar', 'Quiz', false),
+              ..._getMeetingMaterials(widget.meetingTitle).map((material) {
+                return Column(
+                  children: [
+                    _buildMaterialItem(
+                      material['title']!, 
+                      material['type']!, 
+                      material['url']!,
+                      material['isCompleted'] == 'true'
+                    ),
+                    const SizedBox(height: 12),
+                  ],
+                );
+              }),
             ],
           ),
         ],
@@ -311,5 +319,81 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
     if (type.contains('Quiz')) return Icons.quiz_outlined;
     if (type.contains('Link')) return Icons.link;
     return Icons.description_outlined;
+  }
+
+  String _getVideoTitle(String meetingTitle) {
+    if (meetingTitle.contains('Pengantar')) return 'Konsep Dasar UI Design';
+    if (meetingTitle.contains('Pertemuan 2')) return 'Tutorial Wireframing Dasar';
+    if (meetingTitle.contains('Pertemuan 3')) return 'Teori Warna dan Tipografi';
+    return 'Materi Pembelajaran';
+  }
+
+  List<Map<String, String>> _getMeetingMaterials(String meetingTitle) {
+    // Dynamic content based on meeting title
+    if (meetingTitle.contains('Pengantar') || meetingTitle.contains('Pertemuan 1')) {
+      return [
+        {
+          'title': 'Slide Presentasi - Pengantar UI',
+          'type': 'PDF Document',
+          'url': 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          'isCompleted': 'true'
+        },
+        {
+          'title': 'Artikel: Sejarah Perkembangan UI',
+          'type': 'Web Link',
+          'url': 'https://en.wikipedia.org/wiki/History_of_GUI_design',
+          'isCompleted': 'true'
+        },
+        {
+          'title': 'Kuis: Pemahaman Dasar',
+          'type': 'Quiz',
+          'url': '',
+          'isCompleted': 'false'
+        },
+      ];
+    } else if (meetingTitle.contains('Pertemuan 2')) {
+       return [
+        {
+          'title': 'Slide Presentasi - Wireframing',
+          'type': 'PDF Document',
+          'url': 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          'isCompleted': 'false'
+        },
+        {
+          'title': 'Artikel: Panduan Membuat Wireframe',
+          'type': 'Web Link',
+          'url': 'https://en.wikipedia.org/wiki/Website_wireframe',
+          'isCompleted': 'false'
+        },
+        {
+          'title': 'Kuis: Wireframing',
+          'type': 'Quiz',
+          'url': '',
+          'isCompleted': 'false'
+        },
+      ];
+    } else {
+      // Default / Other meetings
+      return [
+        {
+          'title': 'Slide Presentasi - ${meetingTitle.replaceAll('Topik ', '')}',
+          'type': 'PDF Document',
+          'url': 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+          'isCompleted': 'false'
+        },
+        {
+          'title': 'Artikel: Referensi Tambahan',
+          'type': 'Web Link',
+          'url': 'https://en.wikipedia.org/wiki/User_interface_design',
+          'isCompleted': 'false'
+        },
+         {
+          'title': 'Kuis Evaluasi',
+          'type': 'Quiz',
+          'url': '',
+          'isCompleted': 'false'
+        },
+      ];
+    }
   }
 }
