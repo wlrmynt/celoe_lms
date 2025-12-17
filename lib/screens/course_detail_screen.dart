@@ -90,7 +90,16 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
           ),
 
           // Tab 3: Tools
-          const Center(child: Text("Tools Content Placeholder")),
+          ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              _buildToolItem('Figma', 'Desain Interface & Prototyping', 'assets/UX.png'),
+              const SizedBox(height: 12),
+              _buildToolItem('Visual Studio Code', 'Code Editor', 'assets/1.png'),
+              const SizedBox(height: 12),
+              _buildToolItem('Trello', 'Manajemen Proyek', 'assets/Learning Management System.png'),
+            ],
+          ),
         ],
       ),
     );
