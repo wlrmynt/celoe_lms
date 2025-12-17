@@ -210,9 +210,38 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
   Widget _buildMaterialItem(String title, String type, bool isCompleted) {
     return GestureDetector(
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Membuka $title...')),
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  type.contains('PDF') ? Icons.picture_as_pdf : Icons.link,
+                  size: 50,
+                  color: const Color(0xFFB71C1C),
+                ),
+                const SizedBox(height: 16),
+                Text('Membuka $title', style: const TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                const SizedBox(height: 8),
+                const LinearProgressIndicator(color: Color(0xFFB71C1C)),
+                const SizedBox(height: 16),
+                const Text('Sedang memuat...', style: TextStyle(color: Colors.grey, fontSize: 12)),
+              ],
+            ),
+          ),
         );
+
+        // Simulate close after delay
+        Future.delayed(const Duration(seconds: 2), () {
+          if (context.mounted) {
+            Navigator.of(context).pop();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Berhasil membuka $title')),
+            );
+          }
+        });
       },
       child: Container(
         padding: const EdgeInsets.all(16),
