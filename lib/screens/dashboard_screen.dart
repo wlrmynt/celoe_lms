@@ -163,6 +163,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                    Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const AnnouncementListScreen()),
                   );
+                } else if (title == 'Tugas Yang Akan Datang') {
+                  // Navigate to MyClasses as a proxy for Task List or a dedicated screen
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const MyClassesScreen()),
+                  );
                 }
               },
               child: const Text(
@@ -176,7 +181,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildUpcomingTaskCard() {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const AssignmentDetailScreen(
+              assignmentTitle: 'Desain Pengalaman Pengguna',
+            ),
+          ),
+        );
+      },
+      child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -310,7 +325,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     double progress,
     Color color,
   ) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CourseDetailScreen(courseName: title),
+          ),
+        );
+      },
+      child: Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
