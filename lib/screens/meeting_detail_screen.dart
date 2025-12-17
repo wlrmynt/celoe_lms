@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:celoe_lms/screens/quiz_screen.dart';
 
 class MeetingDetailScreen extends StatefulWidget {
   final String meetingTitle;
@@ -211,16 +212,36 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
   Widget _buildMaterialItem(String title, String type, bool isCompleted) {
     return GestureDetector(
       onTap: () async {
-        final Uri url = Uri.parse(
-          type.contains('PDF') 
-            ? 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' 
-            : 'https://www.w3schools.com/css/css3_user_interface.asp'
-        );
+        if (type == 'Quiz') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const QuizScreen()),
+          );
+          return;
+        }
+
+        String urlString = 'https://www.google.com';
+        String message = 'Membuka Link...';
+
+        if (type.contains('PDF')) {
+          urlString = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+          message = 'Membuka PPT...';
+        } else if (type.contains('Web Link') || type.contains('Link')) {
+          urlString = 'https://en.wikipedia.org/wiki/User_interface_design'; // Relevant Article
+          message = 'Membuka Artikel...';
+        }
+
+        if (context.mounted) {
+           ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message)),
+          );
+        }
         
+        final Uri url = Uri.parse(urlString);
         if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
           if (context.mounted) {
              ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Could not launch $url')),
+              SnackBar(content: Text('Could not launch $urlString')),
             );
           }
         }
