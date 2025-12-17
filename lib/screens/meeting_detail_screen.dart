@@ -209,7 +209,7 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
     );
   }
 
-  Widget _buildMaterialItem(String title, String type, bool isCompleted) {
+  Widget _buildMaterialItem(String title, String type, String urlString, bool isCompleted) {
     return GestureDetector(
       onTap: () async {
         if (type == 'Quiz') {
@@ -220,22 +220,7 @@ class _MeetingDetailScreenState extends State<MeetingDetailScreen>
           return;
         }
 
-        String urlString = 'https://www.google.com';
-        String message = 'Membuka Link...';
-
-        if (type.contains('PDF')) {
-          // Use a dummy PDF for the slide presentation
-          urlString = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
-          message = 'Membuka PPT...';
-        } else if (type.contains('Web Link') || type.contains('Link')) {
-          // Specific link based on title
-          if (title.contains('Sejarah')) {
-            urlString = 'https://en.wikipedia.org/wiki/History_of_GUI_design';
-          } else {
-            urlString = 'https://en.wikipedia.org/wiki/User_interface_design';
-          }
-          message = 'Membuka Artikel...';
-        }
+        String message = type.contains('PDF') ? 'Membuka PPT...' : 'Membuka Link...';
 
         if (context.mounted) {
            ScaffoldMessenger.of(context).showSnackBar(
