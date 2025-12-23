@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:celoe_lms/screens/notification_screen.dart';
 import 'package:celoe_lms/screens/my_classes_screen.dart';
 import 'package:celoe_lms/screens/login_screen.dart';
+import 'package:celoe_lms/screens/course_detail_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -313,7 +314,6 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         final course = courses[index];
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -326,37 +326,53 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
               ),
             ],
           ),
-          child: Row(
-            children: [
-              Container(
-                width: 4,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CourseDetailScreen(courseName: course['name']!),
+                  ),
+                );
+              },
+              borderRadius: BorderRadius.circular(12),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
                   children: [
-                    Text(
-                      course['name']!,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Container(
+                      width: 4,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${course['code']} • Mulai ${course['date']}',
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            course['name']!,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${course['code']} • Mulai ${course['date']}',
+                            style: const TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                        ],
+                      ),
                     ),
+                    const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
                   ],
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
-            ],
+            ),
           ),
         );
       },
